@@ -193,6 +193,121 @@ new Vue({
 
 #### 监视属性-深度监视
 
-#### 事件处理
+#### 绑定class样式
 
-#### 事件修饰符
+```vue
+<body>
+    <div id="root" :class="classType" @click="changeColor">
+        test
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            classType: "t1"
+        },
+        methods: {
+            changeColor(){
+                const arr  = ['t1', 't2', 't3']
+                this.classType = arr[Math.floor(Math.random()*3)]
+            }
+        },
+    })
+</script>
+```
+
+#### 绑定style样式
+
+```vue
+<body>
+    <div id="root" :class="arr" :style="styleObj">
+        test
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            classType: "t1",
+            arr : ['t1', 't2'],
+            styleObj: {
+                fontSize: '30px'
+            }
+        }
+    })
+</script>
+```
+
+#### 条件渲染(v-if)
+
+- template模版语法
+
+```vue
+<body>
+    <div id="root">
+        <p>n的值是: {{n}}</p>
+        <button @click="n++">点击加1</button>
+        <div v-if="n === 1">1</div>
+        <div v-else-if="n === 2">2</div>
+        <div v-else-if="n === 3">3</div>
+        <div v-else>0</div>
+        <span v-if="testing">testing</span>
+        <!-- template模版语法 在页面展示的时候就去除了模版 -->
+        <!-- 改动多的用v-show ，v-show是用的css格式将页面隐藏了   v-if在页面上是直接就清除了 -->
+        <template v-if="n === 1">
+            <div>ok1</div>
+            <div>ok2</div>
+        </template>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            ok: true,
+            n:0,
+            testing: true
+        }
+    })
+</script>
+```
+
+#### 列表渲染
+
+- <font style="color:red">重点</font>: ':key'一定要存在 为唯一标识， 在一些输入框中新加元素时可能会出错 原理如下图：
+
+![image-20220714140139280](/Users/zhaoheng/Library/Application Support/typora-user-images/image-20220714140139280.png)
+
+![image-20220714140212132](/Users/zhaoheng/Library/Application Support/typora-user-images/image-20220714140212132.png)
+
+​	![image-20220714140220347](/Users/zhaoheng/Library/Application Support/typora-user-images/image-20220714140220347.png)
+
+```vue
+<body>
+    <div id="root">
+        <ul>
+            <!-- <li v-for="p in persons" :key="p.id">
+                {{p.name}}-{{p.age}}
+            </li> -->
+
+            <li v-for="(p,index) in persons" :key="index">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            persons: [
+                {name:'张', age:18, id:'001'},
+                {name:'梦', age:19, id:'002'},
+                {name:'飞', age:20, id:'003'},
+            ]
+        }
+    })
+</script>
+```
+
