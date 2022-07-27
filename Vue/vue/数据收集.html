@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div id="root">
+   请输入 <input type="text"  v-model="inputText"> 
+   男:<input type="radio" v-model="radioVal" value="1">
+   女:<input type="radio" v-model="radioVal" value="2">
+   第一：<input type="checkbox" v-model="checkboxVal" value="1">
+   第二：<input type="checkbox" v-model="checkboxVal" value="2">
+   第三：<input type="checkbox" v-model="checkboxVal" value="3">
+
+   测试：<input type="checkbox" v-model="checkboxVals">
+   测试1：<input type="checkbox" v-model="checkboxVals">
+   测试2：<input type="checkbox" v-model="checkboxVals">
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#root",   
+        data: {
+            inputText: "",
+            radioVal:1,
+            checkboxVal: [],
+            checkboxVals: ""
+        }
+    })
+</script>
+</html>

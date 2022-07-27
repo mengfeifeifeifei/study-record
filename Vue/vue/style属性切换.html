@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        #root{
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+        }
+        .t1{
+            background-color: blue;
+        }  
+        .t2{
+            border-radius: 5%;
+        }   
+    </style>
+</head>
+<body>
+    <div id="root" :class="arr" :style="styleObj">
+        test
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            classType: "t1",
+            arr : ['t1', 't2'],
+            styleObj: {
+                fontSize: '30px'
+            }
+        }
+    })
+</script>
+</html>

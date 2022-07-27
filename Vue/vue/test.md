@@ -1,0 +1,1 @@
+筛选参数：grade_id，subject_id，mode，status，student_name，student_phone，class_title(班级名称)，teacher_id，classroom_id，start_time_begin(体验开始时间)，start_time_over(体验结束时间)，student_attendance_status(学员考勤,可多选 0待考勤 1上课考勤 2迟到 3迟到早退 4早退 5下课考勤 6正常考勤 7缺勤)

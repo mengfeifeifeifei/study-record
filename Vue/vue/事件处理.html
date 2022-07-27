@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+         <!-- .prevent 为事件修饰符，阻止默认事件 -->
+        <a href="https://www.baidu.com" v-on:click.prevent="showInfo">点我提示信息</a>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#root',
+        methods:{
+            showInfo(e){
+                // 阻止a标签的跳转功能
+                // e.preventDefault()
+                alert("你好")
+            }
+        }
+    })
+</script>
+</html>

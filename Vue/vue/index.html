@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="test">
+        <h1>Hello, World!, {{name}}</h1>
+    </div>
+    <div id="test1">
+        <!-- 指令 -->
+        <span v-bind:title="message">
+            鼠标悬停可以查看提示信息
+            1
+        </span>
+    </div>
+
+    <div id="test2">
+        <!-- 指令 -->
+        <p v-if="seen">你看到我了</p>
+    </div>
+
+    <div id="url-1">
+        <a v-bind:href="url">点击跳转</a>
+    </div>
+    <!-- 简写 -->
+    <div id="url-2">
+        <a :href="url">点击跳转</a>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    // 创建一个实例
+    // 只传一个参数，传对象
+    // el: element
+    new Vue({
+        el: '#test', // el用于指定当前vue实例为哪个容器
+        data: {      // 数据供el所对应的容器使用， 值暂时先写成一个对象
+            name: 'fei'
+        }
+    });
+
+    new Vue({
+        el: "#test1",
+        data: {
+          message: '页面加载' + new Date().toLocaleString()  
+        }
+    })
+
+    new Vue({
+        el: "#test2", 
+        data: {
+            seen: true
+        }
+    })
+
+    new Vue({
+        el: '#url-1',
+        data: {
+            url: 'http://itguigu.com'
+        }
+    })
+
+    new Vue({
+        el: '#url-2',
+        data: {
+            url: 'http://itguigu.com'
+        }
+    })
+
+</script>
+</html> 

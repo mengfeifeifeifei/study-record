@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <button @click="sortType1(2)">升序</button>
+        <button @click="sortType1(1)">降序</button>
+        <button @click="sortType1(0)">不变顺序</button>
+        <ul>
+            <li v-for="(p,index) in filPersons" :key="index">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el: "#root",
+        sortType: 0,
+        data: {
+            persons: [
+                {name:'马冬梅', age:18, id:'001', sex:'女'},
+                {name:'周冬雨', age:19, id:'002', sex:'女'},
+                {name:'周杰伦', age:20, id:'003', sex:'男'},
+                {name:'王心凌', age:38, id:'004', sex:'女'}
+            ],
+            keyWord:'',
+            filPersons: [],
+            sortType:0,
+            test:0
+        },
+        methods: {
+            sortType1(val){
+                this.sortType = val
+            }
+        },
+        // watch监听了一次属性就
+        // watch: {
+        //     sortType: {
+        //         immediate: true,
+        //         handler(){
+        //             console.log(this.sortType)
+        //             const arr = this.persons.filter((p)=>{
+        //                 return p.name.indexOf(this.keyWord) !== -1
+        //             })
+        //             if (this.sortType) {
+        //                 console.log("true")
+        //                 arr.sort((p1, p2) => {
+        //                     return this.sortType === 2 ? p1.age-p2.age : p2.age-p1.age
+        //                 })
+        //             }
+        //             console.log(arr)
+        //             this.filPersons = arr
+        //         }
+        //     }
+        // },
+        computed: {
+            filPersons(){
+                const arr = this.persons.filter((p)=>{
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                if (this.sortType) {
+                    arr.sort((p1, p2) => {
+                        return this.sortType === 2 ? p1.age-p2.age : p2.age-p1.age
+                    })
+                }
+                return arr
+            }
+        }
+    })
+</script>
+</html>
+

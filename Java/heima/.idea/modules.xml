@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/first/first.iml" filepath="$PROJECT_DIR$/first/first.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firstday/firstday.iml" filepath="$PROJECT_DIR$/firstday/firstday.iml" />
+      <module fileurl="file://$PROJECT_DIR$/heima.iml" filepath="$PROJECT_DIR$/heima.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movie-buy-app/movie-buy-app.iml" filepath="$PROJECT_DIR$/movie-buy-app/movie-buy-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movieBuy/movieBuy.iml" filepath="$PROJECT_DIR$/movieBuy/movieBuy.iml" />
+    </modules>
+  </component>
+</project>

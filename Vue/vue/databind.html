@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 单向数据绑定： <input type="text" :value="name"> -->
+        双向数据绑定： <input type="text" v-model:value="name1">
+    </div>
+</body>
+<script>
+    // new Vue({
+    //     el: "#root",
+    //     data: {
+    //         name: '单项绑定',
+    //         name1: '双向绑定'
+    //     }
+    // })
+
+    // new Vue({
+    //     el: "#root",
+    //     data: function() {
+    //         return {
+    //             name1: '双向绑定'
+    //         }
+    //     }
+    // })
+
+    var a = new Vue({
+        // el: "#root",
+        data() {
+            return {
+                name1: '双向绑定'
+            }
+        }
+    })
+    console.log(a)
+    a.$mount('#root')
+</script>
+</html>

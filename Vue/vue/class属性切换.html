@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        #root{
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+        }
+        .t1{
+            background-color: blue;
+        }  
+        .t2{
+            background-color: red;
+        }   
+        .t3{
+            background-color: darkmagenta;
+        } 
+    </style>
+</head>
+<body>
+    <div id="root" :class="classType" @click="changeColor">
+        test
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            classType: "t1"
+        },
+        methods: {
+            changeColor(){
+                const arr  = ['t1', 't2', 't3']
+                this.classType = arr[Math.floor(Math.random()*3)]
+            }
+        },
+    })
+</script>
+</html>
