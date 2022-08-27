@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.EmployeeMapper">
+    <update id="updateEmployee">
+        update employee
+        <set>
+            <if test="employee.name != null">name=#{employee.name},</if>
+            <if test="employee.salary != null">salary=#{employee.salary},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectEmployee" resultType="Employee">
+        select *
+        from employee
+    </select>
+
+    <select id="selectEmployeeById" resultMap="EmployeeResultMap">
+        select *
+        from employee
+        where id = #{id}
+    </select>
+
+    <select id="selectEmployeeCondition" resultType="com.mybatis.demo.Employee">
+        select *
+        from employee
+        where name = #{name}
+          and departmentId = #{departmentId}
+    </select>
+
+    <resultMap id="EmployeeResultMap" type="Employee">
+        <result column="departmentId" property="departmentId"></result>
+    </resultMap>
+
+    <select id="selectEmployeeByIf" resultType="Employee">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="departmentId != null">
+                and departmentId = #{departmentId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBySingleCondition" resultType="com.mybatis.demo.Employee">
+        select * from employee
+        <where>
+            <choose>
+                <when test="name != null">
+                    and name = #{name}
+                </when>
+                <when test="salary != null">
+                    and salary = #{salary}
+                </when>
+                <when test="departmentId != null">
+                    and departmentId = #{departmentId}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+    <title>Document</title>
+</head>
+<body>
+    <div id="test">
+        <div style="border: 1px solid red; text-align: center;">
+            输入要添加的日记： <input type="text" @keyup.enter="addList()" v-model="noteText"> </input>
+            <a href="#" @click.prevent="clearList">清空</a>
+        </div>
+        <div style="border: 1px solid green; text-align: center;">
+            <ul>
+
+                <li v-for="(note, index) in noteList" :key="index" @click="removeList(index)">
+                    {{note}}
+                </li>
+            </ul>
+        </div>
+        <div style="text-align: center;" v-show="noteList.length != 0">
+            <span>
+                共{{noteList.length}}条
+            </span>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#test",
+        data: {
+            noteText: "",
+            noteList: ["展示数据1", "展示数据2"]
+        },
+        methods: {
+            addList() {
+                this.noteList.push(this.noteText)
+                this.noteText = ""
+            },
+            removeList(index) {
+                this.noteList.splice(index, 1)
+            },
+            clearList() {
+                this.noteList = []
+            }
+        },
+    })
+</script>
+</html>
