@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./vue/vue.js"></script>
+</head>
+<body>
+    <div style="text-align: center;" id="test">
+        <button @click="getWeather()">
+            获取当前温度
+        </button>
+    </div>
+</body>
+<script>
+
+
+    // const axios = require('axios').default;
+    weather_url = "http://localhost:8080/javaweb_demo2_war/servlet9"
+    axios.defaults.withCredentials = true
+
+    // const service = axios.create({
+    //     // withCredentials: true,
+    //     timeout: 5000
+    // })
+
+    new Vue({
+        el: "#test",
+        methods: {
+            getWeather() {
+                axios.get(weather_url,  {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+
+                // axios.create({
+                //     url: weather_url,
+                //     method: get,
+                //     withCredentials: false
+                // }).then
+            }
+        },
+    })
+
+</script>
+</html>

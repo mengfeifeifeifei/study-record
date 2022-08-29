@@ -21,4 +21,6 @@ public interface EmployeeMapper {
     List<Employee> selectBySingleCondition(Employee employee);
 
     Integer updateEmployee(@Param("employee") Employee employee, @Param("id") int id);
+
+    Integer DeleteById(int id);
 }

@@ -33,7 +33,8 @@ public class TestEmployee {
 //        selectByIf();
 //        selectAnnotationList();
 //        selectBySingleCondition();
-        updateEmployee();
+//        updateEmployee();
+        DeleteById();
     }
 
     @Test
@@ -102,6 +103,17 @@ public class TestEmployee {
         sqlSession.commit();
         sqlSession.close();
         System.out.println(updateCount);
+    }
+
+    @Test
+    public static void DeleteById() {
+        int id = 3;
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        int deleteCount = mapper.DeleteById(id);
+        // setAutoCommit 为true
+        sqlSession.commit();
+        sqlSession.close();
+        System.out.println(deleteCount);
     }
 
 }

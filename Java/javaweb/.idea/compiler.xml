@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <module name="maven-demo1" />
+        <module name="javaweb-demo2" />
         <module name="mybatis" />
       </profile>
     </annotationProcessing>

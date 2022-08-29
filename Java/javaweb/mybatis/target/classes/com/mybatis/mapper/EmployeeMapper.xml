@@ -12,6 +12,10 @@
         where id = #{id}
     </update>
 
+    <delete id="DeleteById">
+        delete from employee where id = #{id}
+    </delete>
+
     <select id="selectEmployee" resultType="Employee">
         select *
         from employee
