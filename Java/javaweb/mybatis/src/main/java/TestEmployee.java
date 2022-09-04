@@ -34,7 +34,19 @@ public class TestEmployee {
 //        selectAnnotationList();
 //        selectBySingleCondition();
 //        updateEmployee();
-        DeleteById();
+//        DeleteById();
+        selectList();
+    }
+
+    @Test
+    // 方式1
+    public static void selectList() {
+        int id = 2;
+        List<Employee> objects = sqlSession.selectList("com.mybatis.mapper.EmployeeMapper.selectListTest", "zhang");
+        System.out.println(objects.toString());
+//        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+//        Employee employee = mapper.selectEmployeeById(id);
+//        System.out.println(employee);
     }
 
     @Test
