@@ -1,10 +1,13 @@
 package com.mffff.service;
 
 import com.mffff.pojo.Brand;
+import com.mffff.pojo.PageBean;
 
 import java.util.List;
 
 public interface BrandService {
 
-    List<Brand> selectAll();
+    PageBean<Brand> selectAll(int limit, int offset, Brand brand);
+
+    Integer addBrand(Brand brand);
 }

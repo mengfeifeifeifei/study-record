@@ -3,8 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mffff.mapper.BrandMapper">
+    <insert id="addBrand">
+        insert into brand values (null, #{name}, #{company}, #{sort}, #{status})
+    </insert>
 
     <select id="selectAll" resultType="Brand">
         select * from brand
+        <where>
+            <if test="brand.name != null and brand.name != ''">
+                and name like #{brand.name}
+            </if>
+            <if test="brand.status != null">
+                and status = #{brand.status}
+            </if>
+            <if test="brand.company != null and brand.company != ''">
+                and company like #{brand.company}
+            </if>
+        </where>
+        limit #{limit} offset #{offset}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from brand
     </select>
 </mapper>
