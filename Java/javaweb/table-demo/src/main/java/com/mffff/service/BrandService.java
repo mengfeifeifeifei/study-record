@@ -10,4 +10,10 @@ public interface BrandService {
     PageBean<Brand> selectAll(int limit, int offset, Brand brand);
 
     Integer addBrand(Brand brand);
+
+    Integer updateBrand(Brand brand);
+
+    Integer delBrand(Integer id);
+
+    Integer batchDelete(List<Integer> ids);
 }

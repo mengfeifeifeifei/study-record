@@ -1,21 +1,19 @@
 package com.mffff.web;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.mffff.pojo.Brand;
 import com.mffff.pojo.PageBean;
 import com.mffff.service.BrandService;
 import com.mffff.service.impl.BrandServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
-import org.apache.commons.io.IOUtils;
 
 @WebServlet(urlPatterns = "/brand/*")
 public class BrandServlet extends BaseServlet {
@@ -26,7 +24,6 @@ public class BrandServlet extends BaseServlet {
         String limit = req.getParameter("limit");
         String name = req.getParameter("name");
         String _status = req.getParameter("status");
-
         String company = req.getParameter("company");
         Brand brand = new Brand();
         if (name != null && !name.equals("")) {
@@ -45,8 +42,8 @@ public class BrandServlet extends BaseServlet {
         int limit1 = Integer.parseInt(limit);
         int offset = (Integer.parseInt(page)-1) * limit1;
         PageBean<Brand> brands = brandService.selectAll(limit1, offset, brand);
-
         String brandJson = JSON.toJSONString(brands);
+
         resp.setHeader("content-type", "application/json");
         resp.setCharacterEncoding("utf-8");
         resp.getWriter().write(brandJson);
@@ -65,15 +62,52 @@ public class BrandServlet extends BaseServlet {
         System.out.println(integer);
         resp.getWriter().write(integer);
     }
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        List<Brand> brands = brandService.selectAll();
-//        String brandJson = JSON.toJSONString(brands);
-//        resp.getWriter().write(brandJson);
-//    }
-//
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        this.doGet(req, resp);
-//    }
+
+    public void updateBrand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        BufferedReader reader = req.getReader();
+        String params = reader.readLine();
+        Brand brand = JSON.parseObject(params, Brand.class);
+        Integer integer = brandService.updateBrand(brand);
+        System.out.println(integer);
+        resp.getWriter().write(integer);
+    }
+
+    public int delBrand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String _id = req.getParameter("id");
+            int id = Integer.parseInt(_id);
+            Integer integer = brandService.delBrand(id);
+            resp.setContentType("text/html;charset=utf-8");
+            return integer;
+//            resp.getWriter().write(integer);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void batchDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BufferedReader reader = req.getReader();
+        // 接受到的s是json字符串
+        String s = reader.readLine();
+        JSONObject jsonObject = JSON.parseObject(s);
+        List<Integer> ids = (List<Integer>) jsonObject.get("ids");
+//        System.out.println(ids);
+//        String _whereIds = "(";
+//        for (int i = 0; i < ids.size(); i++) {
+//            if (i != ids.size()-1) {
+//                _whereIds += ids.get(i) + ",";
+//            }
+//            _whereIds += ids.get(i);
+//        }
+//        _whereIds += ")";
+//        Integer integer = brandService.batchDelete(_whereIds);
+        Integer integer = brandService.batchDelete(ids);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("content-type", "application/json");
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("count", integer);
+        resp.getWriter().write(JSON.toJSONString(jsonObject1));
+    }
+
 }

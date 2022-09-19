@@ -18,5 +18,11 @@ public interface BrandMapper {
      */
     Integer addBrand(Brand brand);
 
-    Integer selectCount();
+    Integer selectCount(Brand brand);
+
+    Integer updateBrand(Brand brand);
+
+    Integer delBrand(Integer id);
+
+    Integer batchDelete(List<Integer> ids);
 }

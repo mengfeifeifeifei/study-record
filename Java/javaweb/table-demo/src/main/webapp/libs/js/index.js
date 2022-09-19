@@ -14,8 +14,25 @@ new Vue({
             return '';
         },
         handleSelectionChange(val) {
-            this.multipleSelection = val;
+            this.multipleSelection = []
+            for (let i = 0; i < val.length; i++) {
+                this.multipleSelection.push(val[i].id);
+            }
+            this.disabled = this.multipleSelection.length === 0;
+
             console.log(this.multipleSelection)
+        },
+        batchDelete() {
+            axios.post('brand/batchDelete', {
+                ids: this.multipleSelection
+            }).then((resp) => {
+                console.log(resp)
+                this.getBrandList()
+                this.delMessage()
+            }).catch((error) => {
+                console.log(error)
+                this.failMessage()
+            })
         },
         onSubmit() {
             this.getBrandList();
@@ -57,6 +74,7 @@ new Vue({
                     _that.totalCount = response.data.totalCount
                 }
             }).catch(function (error) {
+                this.failMessage()
                 console.log(error)
             })
         },
@@ -66,34 +84,66 @@ new Vue({
                 type: 'success'
             });
         },
+        updateMessage(){
+            this.$message({
+                message: '修改成功',
+                type: 'success'
+            });
+        },
+        delMessage(){
+            this.$message({
+                message: '删除成功',
+                type: 'success'
+            });
+        },
+        failMessage(){
+            this.$message.error('出错了出错了！');
+        },
         getCurrentPage(val){
             this.currentPage = val
             this.getBrandList()
         },
-        handleStatus(row, column, cellValue, index){
-            switch (cellValue) {
-                case 1:
-                    return '开启';
-                case 0:
-                    return '关闭';
-            }
-        },
+        // handleStatus(row, column, cellValue, index){
+        //     switch (cellValue) {
+        //         case 1:
+        //             return '开启';
+        //         case 0:
+        //             return '关闭';
+        //     }
+        // },
         handleEdit(index, row) {
+            this.formUpdate.id = row.id
             this.formUpdate.name = row.name
             this.formUpdate.company = row.company
             this.formUpdate.status = row.status
             this.formUpdate.sort = row.sort
             this.dialogFormVisibleUpdate = true
-            console.log(row.status)
-            console.log(this.formUpdate.status)
-            console.log(this.formUpdate)
-            console.log(index, row);
         },
         handleDelete(index, row) {
+            axios.delete('/brand/delBrand?id=' + row.id).then((response) => {
+                if (response.status === 200) {
+                    console.log(response)
+                    this.delMessage();
+                    this.getBrandList()
+                }
+            }).catch((error) => {
+                this.failMessage();
+                console.log(error)
+            })
             console.log(index, row);
         },
         updateSubmit() {
             console.log(this.formUpdate)
+            axios.post('/brand/updateBrand', this.formUpdate).then((response)=>{
+                if (response.status === 200) {
+                    this.dialogFormVisibleUpdate = false
+                    this.getBrandList()
+                    this.updateMessage()
+                }
+            }).catch((error) => {
+                this.failMessage()
+                console.log(error)
+            })
         }
     },
     data() {
@@ -117,6 +167,7 @@ new Vue({
             },
             // 修改form数据
             formUpdate: {
+                id: '',
                 name: '',
                 company: '',
                 status: 1,
@@ -125,7 +176,8 @@ new Vue({
             formLabelWidth: '120px',
             currentPage: 1,
             limit: 10,
-            totalCount: 0
+            totalCount: 0,
+            disabled: true
         }
     }
 })

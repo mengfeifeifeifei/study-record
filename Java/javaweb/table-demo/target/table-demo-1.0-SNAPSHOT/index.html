@@ -34,6 +34,7 @@
         <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
             <el-button type="primary" @click="dialogFormVisible = true">新增</el-button>
+            <el-button type="danger" :disabled="disabled" @click="batchDelete">批量删除</el-button>
         </el-form-item>
     </el-form>
     <!-- 新增的弹窗  -->
@@ -51,8 +52,8 @@
             <el-form-item label="状态" :label-width="formLabelWidth">
                 <el-switch
                         v-model="form.status"
-                        active-value=1
-                        inactive-value=0
+                        :active-value=1
+                        :inactive-value=0
                         inactive-color="#ff4949">
                 </el-switch>
             </el-form-item>

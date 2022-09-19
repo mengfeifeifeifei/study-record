@@ -17,7 +17,9 @@ public class BrandServiceImpl implements BrandService {
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
 
         List<Brand> brands = mapper.selectAll(limit, offset, brand);
-        Integer total = mapper.selectCount();
+        Integer total = mapper.selectCount(brand);
+
+        System.out.println("total:" + total);
 
         PageBean<Brand> objectPageBean = new PageBean<Brand>();
         objectPageBean.setTotalCount(total);
@@ -31,6 +33,36 @@ public class BrandServiceImpl implements BrandService {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
         Integer integer = mapper.addBrand(brand);
+        sqlSession.commit();
+        sqlSession.close();
+        return integer;
+    }
+
+    public Integer updateBrand(Brand brand) {
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        Integer integer = mapper.updateBrand(brand);
+        sqlSession.commit();
+        sqlSession.close();
+        return integer;
+    }
+
+    public Integer delBrand(Integer id) {
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        Integer integer = mapper.delBrand(id);
+        sqlSession.commit();
+        sqlSession.close();
+        return integer;
+    }
+
+    public Integer batchDelete(List<Integer> ids) {
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        Integer integer = mapper.batchDelete(ids);
         sqlSession.commit();
         sqlSession.close();
         return integer;
