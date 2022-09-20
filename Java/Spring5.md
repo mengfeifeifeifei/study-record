@@ -53,17 +53,21 @@ ctrl+h 再idea中打开类的实现类
 
 - 两种方式：
 
+  
+  
+  1. 基于xml配置文件方式实现
+  2. 基于注解方式实现
+  
+- `基于xml方式的bean管理`
+
+  执行参数的时候，默认也是执行`无参数构造方法`完成对象创建
+
   ```java
   <bean id="User" class="com.mffff.spring.User"></bean>
   ```
 
-  1. 基于xml配置文件方式实现
-  2. 基于注解方式实现
-
-- 基于xml方式的bean管理
-
   	1. 使用bean标签，添加属性就可以实现对象创建
-  	1. 属性有：
+  	2. 属性有：
 
   > // 别名，唯一标识
   >
@@ -77,21 +81,72 @@ ctrl+h 再idea中打开类的实现类
   >
   > name属性
 
-  3. 执行参数的时候，默认也是执行无参数构造方法完成对象创建
+  `DI：依赖注入，就是注入属性`
 
-- 基于注解方式实现
+  - set注入（name为bean的属性名，value为值）
+  - 当xml的对象创建完成的时候，会自动依赖注入到bean的属性中的值（xml注入）
 
-  1. DI：依赖注入，就是注入属性
+  ```java
+  <bean id="User" class="com.mffff.spring.User">
+      <property name="name" value="注入写入">					</property>
+  </bean>
+  ```
 
-     - set注入（name为bean的属性名，value为值）
-     - 当xml的对象创建完成的时候，会自动依赖注入到bean的属性中的值
+  `有参构造器注入`
 
-     ```java
-     <bean id="User" class="com.mffff.spring.User">
-         <property name="name" value="注入写入">					</property>
-     </bean>
-     ```
+  ```xml
+  <bean id="order" class="com.mffff.spring.Order">
+          <constructor-arg name="name" value="1243"></constructor-arg>
+          <constructor-arg name="address" value="河北省石家庄"></constructor-arg>
+  </bean>
+  ```
 
-     
+  `p名称空间注入`（简化bean的属性值注入，了解）
 
-     - 有参构造器注入
+  > 使用p名称空间注入，可以简化xml注入方式
+  >
+  > 1. 添加p名称空间再xml文件中（顶部的约束中）
+  >
+  >    ```
+  >    xmlns:p="http://www.springframework.org/schema/p"
+  >    ```
+  >
+  > 2. ```
+  >    <bean id="order" class="com.mffff.spring.Order" p:属性名=“属性值”>
+  >    </bean>
+  >    ```
+  >    
+  
+  `注入空值`
+  
+  ```xml
+   <bean id="order" class="com.mffff.spring.Order">
+          <constructor-arg name="name" value="1243"></constructor-arg>
+          <constructor-arg name="address">
+              <null/>
+          </constructor-arg>
+  </bean>
+  ```
+  
+  `注入特殊字符`
+  
+  ```xml
+  <bean id="User" class="com.mffff.spring.User">
+          <property name="name">
+              <value><![CDATA[<<测试>>]]></value>
+          </property>
+  </bean>
+  ```
+  
+  `注入外部bean（注入其他的java文件）`
+  
+  - service注入DaoImpl方法(用ref引入)
+  
+  ```xml
+  <bean id="userService" class="com.mffff.spring.service.UserService">
+          <property name="userDao" ref="userDaoImpl"></property>
+  </bean>
+  <bean id="userDaoImpl" class="com.mffff.spring.dao.UserDaoImpl"></bean>
+  ```
+  
+  
