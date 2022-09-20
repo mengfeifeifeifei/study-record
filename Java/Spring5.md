@@ -141,6 +141,7 @@ ctrl+h 再idea中打开类的实现类
   `注入外部bean（注入其他的java文件）`
   
   - service注入DaoImpl方法(用ref引入)
+  - 属性名userDao注入userDaoImpl
   
   ```xml
   <bean id="userService" class="com.mffff.spring.service.UserService">
