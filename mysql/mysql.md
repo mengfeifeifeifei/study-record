@@ -225,3 +225,46 @@ show variables like 'transaction_isolation';
 set global transaction isolation level repeatable read
 ```
 
+## 索引
+
+- 索引相当于一本书的目录，是为了缩小扫描范围存在的机制
+- 底层就类似于java的treeset，平衡二叉树，索引也是需要排序的，在mysql中是B-tree数据结构
+
+`实现原理`
+
+> 1.主键和unique都会自动添加索引
+>
+> 2.任何一张表的一条记录在硬盘存储上都有一个硬盘的物理存储编号
+>
+> 3.索引是一个单独的对象，不同的存储引擎以不同的形式存在，myisam中，索引存储在一个.MYI文件中。在Innodb中索引存储在一个逻辑名称叫tableplace当中。Memory存储引擎中，索引存储在内存中， 无论索引存储在哪，都是以一个数的形式存在的（自平衡二叉树： B-tree）
+
+<font color="red">重要</font>(原理图)
+
+
+
+- DML语句后，索引字段需要重新排序，所以索引不要添加到经常增删改的字段上
+
+`添加索引`
+
+```sql
+create index 索引名称 on 表名(字段名);
+```
+
+`删除索引`
+
+```sql
+drop index 索引名称 on 表名;
+```
+
+## 视图
+
+`创建视图`
+
+```sql
+create view xxx as select * from xxx;
+```
+
+- 对试图的操作会更改原表的数据
+- 视图as后面的语句只能是DQL语句
+- 视图为了简化sql语句，把结构先统计出来，之后直接查询视图就可以
+
