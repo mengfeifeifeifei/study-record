@@ -1,20 +1,8 @@
 package com.mffff.spring;
 
-public class Order {
+import org.springframework.stereotype.Component;
 
-    private String name;
-    private String address;
 
-    public Order(String name, String address) {
-        this.name = name;
-        this.address = address;
-    }
+public interface Order {
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }

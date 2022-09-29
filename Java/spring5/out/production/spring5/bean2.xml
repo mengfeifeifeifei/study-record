@@ -10,6 +10,9 @@
 <!--            <property name="dept" ref="dept"></property>-->
 <!--        </bean>-->
 
-    <!--            自动装配-->
+
+    <!--    自动装配    -->
+    <!--    这里要注意，bean id的名称和要和注入的属性名是一样的，也就是Emp对象中属性名是dept，上面定义的bean id的名称也同样是dept-->
+    <!--    byType根据类型自动注入-->
     <bean id="emp" class="com.mffff.autowire.Emp" autowire="byName"></bean>
 </beans>
