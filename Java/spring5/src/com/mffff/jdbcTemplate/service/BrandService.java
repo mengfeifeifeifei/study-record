@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService {
 
-    @Autowired
-    private BrandDao brandDao;
+    private final BrandDao brandDao;
+
+    public BrandService(BrandDao brandDao) {
+        this.brandDao = brandDao;
+    }
 
     public int updateBrand() {
         Brand brand = new Brand();
@@ -18,5 +21,11 @@ public class BrandService {
         brand.setId(6);
         int i = brandDao.updateBrand(brand);
         return i;
+    }
+
+    public Brand selectById() {
+        int id = 7;
+        Brand brand = brandDao.selectById(id);
+        return brand;
     }
 }

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Component;
 public interface BrandDao {
 
     int updateBrand(Brand brand);
+
+    Brand selectById(int id);
 }
