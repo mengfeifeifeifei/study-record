@@ -272,3 +272,51 @@ ApplicationContext Context = new AnnotationConfigApplication(SpringConfig.class)
 来加载配置文件
 ```
 
+
+
+#### AOP
+
+- 不改变源代码情况下实现方法的增强
+
+- 底层使用动态代理
+- 两种情况动态代理
+  1. 有接口情况，使用JDK动态代理（创建接口实现类代理对象，增强类的方法）
+  2. 没有接口情况，使用CGLIB动态代理（创建子类代理对象，增强类的方法）
+
+术语
+
+- 连接点
+  - 类中能被增强的方法
+- 切入点
+  - 类中实际被增强的方法
+- 通知（增强）
+  - 实际增强的逻辑部分
+  - 多种类型
+    - 前置通知
+    - 后置通知
+    - 环绕通知（方法前面和后面都增强）
+    - 异常通知
+    - 最终通知
+- 切面
+  - 把通知应用到切入点的过程
+
+> 在spring中一般使用AspectJ实现AOP操作
+
+AspectJ使用
+
+- 切入点表达式
+  - Execution([权限修饰符]\[返回类型\]\[类全路径\]\[方法名\](\[参数]))
+  - 举例：com.mffff.test.UserDao类里面的add方法进行增强
+  - execution(* com.mffff.test.UserDao.add(...))
+  - *代表任意 返回类型可以省略
+
+```java
+@After(value = "execution(xxx)")
+```
+
+#### JdbcTemplate
+
+- JdbcTemplate：spring对jdbc进行封装，使用JdbcTemplate对数据库操作
+
+1. 引入jar包
+2. 

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class User {
     // 这里在order实现类上面加上Component注解自动装配成功的原因是： 可以把下面的代码看作
-    // private Order order = new Order的实现类();
-    // 所以这里相当于去着了order的实现类，就装配成功了
+    // private Order order = new Order()的实现类;
+    // 所以这里相当于去找order的实现类，就装配成功了
     @Autowired
     private Order order;
     public void add() {
