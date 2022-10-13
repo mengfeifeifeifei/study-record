@@ -8,4 +8,6 @@ public interface BrandDao {
     int updateBrand(Brand brand);
 
     Brand selectById(int id);
+
+    int updateEmployee();
 }

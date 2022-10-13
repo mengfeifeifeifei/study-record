@@ -35,4 +35,11 @@ public class BrandDaoImpl implements BrandDao {
         Brand brand = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Brand>(Brand.class), id);
         return brand;
     }
+
+    @Override
+    public int updateEmployee() {
+        String sql = "update employee set name = 'ccc' where id = ?";
+        int update = jdbcTemplate.update(sql, new Object[]{1});
+        return update;
+    }
 }

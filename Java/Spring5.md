@@ -314,9 +314,124 @@ AspectJ使用
 @After(value = "execution(xxx)")
 ```
 
-#### JdbcTemplate
+#### JdbcTemplate(注解方式)
 
 - JdbcTemplate：spring对jdbc进行封装，使用JdbcTemplate对数据库操作
 
 1. 引入jar包
-2. 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="com.mffff.jdbcTemplate"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="url"
+                  value="jdbc:mysql://rm-2zeff536j939032fb0o.mysql.rds.aliyuncs.com:3306/sql-project?useSSL=false&amp;useServerPrepStmts=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Baby980915"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxWait" value="3000"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+    </bean>
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <!--   注入datasource     -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--  配置事务管理器  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
+    </bean>
+
+    <!--  开启事务注解  -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
+```
+
+- 在方法名上加@Transactional 开启事务，可以配置其他参数。
+
+```java
+private JdbcTemplate jdbcTemplate;
+
+@Autowired
+public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+  this.jdbcTemplate = jdbcTemplate;
+}
+```
+
+DaoImpl层
+
+```java
+String sql = "update brand set name = ?, company = ? where id =?";
+Object[] args = {brand.getName(), brand.getCompany(), brand.getId()};
+int updateRow = jdbcTemplate.update(sql, args);
+return updateRow;
+```
+
+- 完全注解方式
+
+```java
+package com.mffff.config;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
+import javax.sql.DataSource;
+
+@Configuration
+@ComponentScan(basePackages = "com.mffff.jdbcTemplate")
+@EnableTransactionManagement // 开启事务
+public class JdbcTemplateConfig {
+    // 连接池
+    @Bean
+    public DruidDataSource getDruidDataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://rm-2zeff536j939032fb0o.mysql.rds.aliyuncs.com:3306/sql-project?useSSL=false&useServerPrepStmts=true");
+        dataSource.setUsername("root");
+        dataSource.setPassword("Baby980915");
+        dataSource.setInitialSize(5);
+        dataSource.setMaxActive(10);
+        dataSource.setMaxWait(3000);
+        return dataSource;
+    }
+
+    // jdbcTemplate
+    @Bean
+    public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+        return jdbcTemplate;
+    }
+
+    // 事务
+    @Bean
+    public DataSourceTransactionManager getDataSourceTransactionManager(DataSource dataSource) {
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource);
+        return transactionManager;
+    }
+}
+
+```
+
+#### 整合日志框架
+
+- Log4j2
