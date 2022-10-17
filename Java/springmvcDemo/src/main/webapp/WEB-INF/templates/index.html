@@ -12,5 +12,9 @@
 <!--  解决tomcat配置的上下文路径  用thymeleaf解决，@{}把路径放里面，会自动解析 如果是/开头的跟路径，会自动加 上下文 路径，
   上下文路径就是tomcat 配置中 application context 的路径-->
     <a th:href="@{/target}">访问目标页面</a>
+    <a th:href="@{/utils}">传参和实体映射</a><br>
+    <a th:href="@{/testRequestByServletApi}">通过servletApi向request域对象共享数据</a>
+    <a th:href="@{/textModelAndView}">通过ModelAndView向request域对象共享数据</a>
+    <a th:href="@{/testSession}">通过ModelAndView向request域对象共享数据</a>
 </body>
 </html>

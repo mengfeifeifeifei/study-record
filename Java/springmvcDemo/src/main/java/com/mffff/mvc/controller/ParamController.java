@@ -1,6 +1,8 @@
 package com.mffff.mvc.controller;
 
+import com.mffff.mvc.utils.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,6 +19,17 @@ public class ParamController {
     public String testparam(@RequestParam("user_name") String username, String password) {
         System.out.println(username);
         System.out.println(password);
+        return "index";
+    }
+
+    @GetMapping("/utils")
+    public String utilsMap() {
+        return "utils";
+    }
+
+    @RequestMapping("/onutils")
+    public String onUtils(User user) {
+        System.out.println(user);
         return "index";
     }
 }
