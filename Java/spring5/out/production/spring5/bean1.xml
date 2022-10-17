@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--  配置test对象创建(无参构造器注入创建)  -->
+<!--    <bean id="User" class="com.mffff.spring.User"></bean>-->
+
+<!--    注入属性-->
+    <bean id="User" class="com.mffff.spring.User">
+        <property name="name">
+            <value><![CDATA[<<测试>>]]></value>
+        </property>
+    </bean>
+
+<!--    有参构造器注入-->
+<!--    <bean id="order" class="com.mffff.spring.Order">-->
+<!--        <constructor-arg name="name" value="1243"></constructor-arg>-->
+<!--        <constructor-arg name="address" value="河北省石家庄"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    注入空值写法-->
+<!--    <bean id="order" class="com.mffff.spring.Order">-->
+<!--        <constructor-arg name="name" value="1243"></constructor-arg>-->
+<!--        <constructor-arg name="address">-->
+<!--            <null/>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
+
+<!--    有特殊符号写法-->
+<!--    <bean id="order" class="com.mffff.spring.Order">-->
+<!--        <constructor-arg name="name" value="1243"></constructor-arg>-->
+<!--        <constructor-arg name="address">-->
+<!--            <value><![CDATA[<<南京>>]]></value>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
+
+
+<!--    注入list集合类型-->
+<!--    <bean id="user" class="com.mffff.spring.User">-->
+<!--        <property name="tag">-->
+<!--            <list>-->
+<!--                <value>zhang</value>-->
+<!--                <value>san</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    注入list集合，其他类型-->
+<!--    <bean id="user" class="com.mffff.spring.User">-->
+<!--        <property name="tag">-->
+<!--    bean后面的值是下面配置的baen的name的值-->
+<!--            <ref bean=""></ref>-->
+<!--        </property>-->
+<!--    </bean>-->
+</beans>
