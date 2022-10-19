@@ -27,3 +27,8 @@ ThyMeleafView什么时候被创建？
 
 
 jsp方式 解析上下文路径用${pageContext.request.contextPath}
+
+
+
+put patch delete 发送方式，html页面新加一个隐藏类型，name="_method" value="put" 传值
+
