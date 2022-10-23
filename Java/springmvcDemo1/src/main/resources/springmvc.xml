@@ -28,12 +28,17 @@
             </bean>
         </property>
     </bean>
-    <mvc:view-controller path="/" view-name="index" />
+    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/file" view-name="file"/>
 
     <!--  开启注解驱动  -->
     <mvc:annotation-driven/>
 
     <!--  开启默认servlet处理静态资源  -->
     <mvc:default-servlet-handler/>
+
+
+    <!--  配置文件上传解析器，将上传的文件封装成Multipartfile  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
 </beans>
