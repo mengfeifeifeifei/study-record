@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace要和映射接口的全类名保持一致-->
+<mapper namespace="com.mffff.mybatis.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into user values (null, 'mf', '123456')
+    </insert>
+</mapper>
