@@ -7,4 +7,7 @@
     <insert id="insertUser">
         insert into user values (null, 'mf', '123456')
     </insert>
+    <select id="selectUsers" resultType="user">
+        select * from user
+    </select>
 </mapper>
