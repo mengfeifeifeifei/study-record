@@ -44,8 +44,10 @@ def post_article(conn, user, title, link, article_id):
         'time': now,
         'votes': 1
     })
-    conn.zadd('time:', article, now)
-    conn.zadd('score:', article, now + VOTE_SCORE)
+    # conn.zadd('time:', article, now)
+    conn.zadd('time:', {article: now})
+    # conn.zadd('score:', article, now + VOTE_SCORE)
+    conn.zadd('score:', {article: now + VOTE_SCORE})
 
     return article_id
 
@@ -60,7 +62,7 @@ def article_initial(conn):
     return article_id, article_title, user_id, link
 
 
-redis_conn = redis.Redis(host='60.205.216.24', port=6379, password='redis_master')
+redis_conn = redis.Redis(host='60.205.216.24', port=6380, password='redis_master')
 article_id, title, user, link = article_initial(redis_conn)
 
 ONE_WEEK_IN_SECONDS = 7 * 86400
