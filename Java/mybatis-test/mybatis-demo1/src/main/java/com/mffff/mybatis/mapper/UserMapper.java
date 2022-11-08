@@ -1,9 +1,11 @@
 package com.mffff.mybatis.mapper;
 
 import com.mffff.mybatis.pojo.User;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
 
@@ -20,5 +22,10 @@ public interface UserMapper {
      * @return List<User>
      */
     List<User> selectUsers();
+
+    @MapKey("id")
+    Map<String, Object> selectUsersByName(String username);
+
+    int insertUserGetId(User user);
 
 }

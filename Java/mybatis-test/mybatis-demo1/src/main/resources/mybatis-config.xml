@@ -13,6 +13,13 @@
         <!-- 启用默认值特性, 开启当properties文件中读取不到配置时给一个默认值 ${aliyun.username:root} -->
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
     </properties>
+
+    <!--  将字段名中下划线映射为驼峰  emp_name: empName，来解决sql查出来的字段名和实体类的属性名不同的映射关系   -->
+    <!--  是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。  -->
+<!--    <settings>-->
+<!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
+<!--    </settings>-->
+
     <typeAliases>
         <!--   这里的alias可写可不写，不写默认是class类名，不区分大小写     -->
         <typeAlias type="com.mffff.mybatis.pojo.User" alias="User"/>

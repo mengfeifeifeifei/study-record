@@ -4,10 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace要和映射接口的全类名保持一致-->
 <mapper namespace="com.mffff.mybatis.mapper.UserMapper">
+
+    <!--  type设置实体类的类型  -->
+<!--    <resultMap id="testing" type="user">-->
+<!--        &lt;!&ndash;   设置主键的映射关系     &ndash;&gt;-->
+<!--        <id property="" column=""></id>-->
+<!--        &lt;!&ndash;   设置普通字段的映射关系    &ndash;&gt;-->
+<!--        <result property="" column=""></result>-->
+<!--    </resultMap>-->
+
     <insert id="insertUser">
-        insert into user values (null, 'mf', '123456')
+        insert into user
+        values (null, 'mf', '123456')
+    </insert>
+    <!--  获取自动递增的主键，useGeneratedKeys设置当前标签中的sql使用了自增的主键 keyProperty将自增的主键值赋值给传输到映射文件中参数的某个属性      -->
+    <insert id="insertUserGetId" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        values (null, #{username}, #{password})
     </insert>
     <select id="selectUsers" resultType="user">
-        select * from user
+        select *
+        from user
+    </select>
+    <select id="selectUsersByName" resultType="map">
+        select *
+        from user
+        where username like "%"#{username}"%"
     </select>
 </mapper>
