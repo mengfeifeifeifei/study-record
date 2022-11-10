@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace要和映射接口的全类名保持一致-->
 <mapper namespace="com.mffff.mybatis.mapper.UserMapper">
-
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
     <!--  type设置实体类的类型  -->
-<!--    <resultMap id="testing" type="user">-->
-<!--        &lt;!&ndash;   设置主键的映射关系     &ndash;&gt;-->
-<!--        <id property="" column=""></id>-->
-<!--        &lt;!&ndash;   设置普通字段的映射关系    &ndash;&gt;-->
-<!--        <result property="" column=""></result>-->
-<!--    </resultMap>-->
+    <!--    <resultMap id="testing" type="user">-->
+    <!--        &lt;!&ndash;   设置主键的映射关系     &ndash;&gt;-->
+    <!--        <id property="" column=""></id>-->
+    <!--        &lt;!&ndash;   设置普通字段的映射关系    &ndash;&gt;-->
+    <!--        <result property="" column=""></result>-->
+    <!--    </resultMap>-->
 
     <insert id="insertUser">
         insert into user
@@ -30,5 +30,27 @@
         select *
         from user
         where username like "%"#{username}"%"
+    </select>
+    <select id="selectUserByCondition" resultType="user">
+        select * from user
+        <trim prefix="where" prefixOverrides="and">
+                <if test="username != null and username != ''">
+                     username = #{username}
+                </if>
+                <if test="password != null and password != ''">
+                    and password = #{password}
+                </if>
+        </trim>
+    </select>
+    <select id="selectUserByConditionOne" resultType="user">
+        select * from user
+        <where>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
     </select>
 </mapper>

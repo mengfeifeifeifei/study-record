@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--  properties?,settings?,typeAliases?,
+    typeHandlers?,objectFactory?,objectWrapperFactory?,
+    reflectorFactory?,plugins?,environments?,
+    databaseIdProvider?,mappers?-->
+
+    <!--  设置properties配置文件路径，动态获取数据库连接信息，${}方式获取  -->
+    <properties resource="mysql.properties">
+        <!-- 启用默认值特性, 开启当properties文件中读取不到配置时给一个默认值 ${aliyun.username:root} -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+    </properties>
+
+    <!--  将字段名中下划线映射为驼峰  emp_name: empName，来解决sql查出来的字段名和实体类的属性名不同的映射关系   -->
+    <!--  是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。  -->
+<!--    <settings>-->
+<!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
+<!--    </settings>-->
+
+    <typeAliases>
+        <!--   这里的alias可写可不写，不写默认是class类名，不区分大小写     -->
+<!--        <typeAlias type="com.mffff.mybatis.pojo.User" alias="User"/>-->
+        <!--   包配置方法     -->
+        <!--   <package name="com.mffff.mybatis.pojo"/>   -->
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${aliyun.driver}"/>
+                <property name="url"
+                          value="${aliyun.url}"/>
+                <property name="username" value="${aliyun.username:root}"/>
+                <property name="password" value="${aliyun.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--  使用的是resource 目录方式      -->
+<!--        <mapper resource="com/mffff/mybatis/mapper/UserMapper.xml"/>-->
+        <!--   使用包引入方式，xml的路径要和mapper接口的路径保持一致    -->
+           <package name="com.mffff.mybatis.mapper"/>
+    </mappers>
+</configuration>

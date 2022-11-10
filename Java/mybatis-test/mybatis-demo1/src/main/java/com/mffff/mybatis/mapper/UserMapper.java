@@ -28,4 +28,10 @@ public interface UserMapper {
 
     int insertUserGetId(User user);
 
+    /**
+     * where条件查询
+     */
+    List<User> selectUserByCondition(User user);
+
+
 }
