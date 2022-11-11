@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace要和映射接口的全类名保持一致-->
+<mapper namespace="com.mffff.ssm.mapper.EmployeeMapper">
+
+    <resultMap id="employee" type="com.mffff.ssm.pojo.Employee">
+        <id property="id" column="emp_id"></id>
+<!--        <result property="empName" column="emp_name"></result>-->
+<!--        <result property="age" column="age"></result>-->
+<!--        <result property="gender" column="gender"></result>-->
+    </resultMap>
+
+    <select id="getEmployeeList" resultMap="employee">
+        select * from t_emp
+    </select>
+</mapper>
