@@ -1,0 +1,17 @@
+person:
+  id: 2
+  name: zhangsan
+  age: 18
+  sex: 1
+#spring:
+#  mvc:
+#    static-path-pattern: /res/** #导致欢迎页index.html失效
+
+#  resources:
+#    static-locations:
+spring:
+  mvc:
+    #  开启put delete方式等提交
+    hiddenmethod:
+      filter:
+        enabled: true
