@@ -271,9 +271,7 @@ docker run --name=ssh -p 23:22 centos_ssh:v1 /usr/sbin/sshd -D
 >
 > 格式：
 >
-> FROM base
->
-> VOLUMN ["/tmp"]
+> FROM baseVOLUMN ["/tmp"]
 >
 > 运行镜像后，在容器关闭后，/tmp目录中的数据持久化到宿主机中
 
@@ -320,8 +318,4 @@ docker run --name=ssh -p 23:22 centos_ssh:v1 /usr/sbin/sshd -D
 12. USER
 
 > USER设置指令，设置启动容器的用户，默认时root用户
-
-
-
-
 
