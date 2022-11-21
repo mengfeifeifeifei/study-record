@@ -317,5 +317,5 @@ docker run --name=ssh -p 23:22 centos_ssh:v1 /usr/sbin/sshd -D
 
 12. USER
 
-> USER设置指令，设置启动容器的用户，默认时root用户
+> USER设置指令，设置启动容器的用户，默认时root用户	
 
