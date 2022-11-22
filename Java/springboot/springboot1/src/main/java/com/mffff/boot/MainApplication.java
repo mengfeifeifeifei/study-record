@@ -15,7 +15,7 @@ import java.util.List;
  * 默认扫描当前类所在的目录下的所有的包文件
  */
 @SpringBootApplication
-//@ConfigurationPropertiesScan
+//@ConfigurationPropertiesScan("com.mffff.boot")
 public class MainApplication {
     public static void main(String[] args) {
         // 获取的IOC容器，包含所有加载进来的bean
