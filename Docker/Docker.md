@@ -63,6 +63,19 @@ docker tag ImageId registry.cn-beijing.aliyuncs.com/zhangmf/pythondemo:release-0
 docker push registry.cn-beijing.aliyuncs.com/zhangmf/pythondemo:release-0.1
 ```
 
+#### 文件复制
+
+```
+# 将主机/www/file文件夹复制到容器的/www目录下
+docker cp /www/file 容器id:/www/
+# 将主机/www/file文件夹复制到容器中并重命名为www
+docker cp /www/file 容器id:/www
+# 将容器的/www目录拷贝到主机中的/tmp中
+docker cp 容器id:/www /tmp/
+```
+
+
+
 #### EXPOSE和PORT区别
 
 Docker-compose中
