@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
+    private HelloService helloService;
+
     @Autowired
-    HelloService helloService;
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
 
     @RequestMapping("/")
-    public String sayHello() {
-        String HelloService = helloService.sayHello("张梦飞");
+    public String sayHello(HelloService helloService) {
+        String HelloService = helloService.sayHello("mffff");
         return HelloService;
     }
 }

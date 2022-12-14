@@ -1,0 +1,14 @@
+spring:
+#  application:
+#    name: user-center
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: test
+    url: jdbc:mysql://rm-2zeff536j939032fb0o.mysql.rds.aliyuncs.com:3306/sql-project?useSSL=false
+#  sql:
+#    init:
+#      schema-locations: classpath:db/schema-h2.sql
+server:
+  port: 8080
+
