@@ -123,11 +123,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         safetyUser.setEmail(originUser.getEmail());
         safetyUser.setUserStatus(originUser.getUserStatus());
         safetyUser.setCreateTime(originUser.getCreateTime());
-        safetyUser.setUserRole(originUser.getUserRole());
-        safetyUser.setPlanetCode(originUser.getPlanetCode());
         safetyUser.setUpdateTime(originUser.getUpdateTime());
         safetyUser.setIsDelete(originUser.getIsDelete());
+        safetyUser.setUserRole(originUser.getUserRole());
+        safetyUser.setPlanetCode(originUser.getPlanetCode());
         return safetyUser;
+    }
+
+    @Override
+    public Integer userLogout(HttpServletRequest request) {
+        request.getSession().removeAttribute(USER_LOGIN_STATE);
+        return 1;
     }
 }
 
