@@ -2,6 +2,8 @@ package com.mffff.usercenter.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mffff.usercenter.common.ErrorCode;
+import com.mffff.usercenter.exception.BusinessException;
 import com.mffff.usercenter.mapper.UserMapper;
 import com.mffff.usercenter.model.domain.User;
 import com.mffff.usercenter.service.UserService;
@@ -35,30 +37,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数错误");
         }
         if (userAccount.length() < 4) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账户小于4位");
         }
         if (userPassword.length() < 8 || checkPassword.length() < 8) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码小于8位");
         }
         // 账号不能包含特殊字符
         String vaildPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Matcher matcher = Pattern.compile(vaildPattern).matcher(userAccount);
         if (matcher.find()) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账户包含特殊字符");
         }
         // 校验密码是否相同
         if (!userPassword.equals(checkPassword)) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "两次密码不一致");
         }
         // 账户不能重复
         QueryWrapper<User> objectQueryWrapper = new QueryWrapper<>();
         objectQueryWrapper.eq("userAccount", userAccount);
         Long count = userMapper.selectCount(objectQueryWrapper);
         if (count > 0) {
-            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账户已注册");
         }
         // 加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
@@ -68,7 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         originUser.setUserPassword(encryptPassword);
         boolean saveResult = this.save(originUser);
         if (!saveResult) {
-            return -1;
+            throw new BusinessException(ErrorCode.REGISTER_ERR);
         }
         return originUser.getId();
     }
@@ -76,13 +78,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数错误");
         }
         if (userAccount.length() < 4) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账户长度小于4位");
         }
         if (userPassword.length() < 5) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码小于5位");
         }
         // 账号不能包含特殊字符
         String vaildPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
