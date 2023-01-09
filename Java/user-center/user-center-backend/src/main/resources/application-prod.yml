@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-center
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Baby980915
+    url: jdbc:mysql://rm-2zeff536j939032fb0o.mysql.rds.aliyuncs.com:3306/user_center?useSSL=false
+  session:
+    timeout: 86400 # session失效时间
+#  sql:
+#    init:
+#      schema-locations: classpath:db/schema-h2.sql
+server:
+  servlet:
+    context-path: /api
